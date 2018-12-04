@@ -1,0 +1,9 @@
+.hidden {
+  display: none;
+}
+.center {
+    display: flex;
+    flex-flow: row;
+    width: 100%;
+    justify-content: center;
+}

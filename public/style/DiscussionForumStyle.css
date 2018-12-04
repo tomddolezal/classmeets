@@ -1,0 +1,119 @@
+.discussionPost {
+    border:1px solid black;
+}
+
+
+.discussionPost {
+    padding-left: 20px;
+    margin-bottom: 30px;
+}
+
+#naivigationBar {
+    margin: 0;
+    padding: 0;
+}
+
+#naivigationBar nav {
+    margin: 0;
+    padding: 0;
+    border-radius: 0;
+}
+
+.discussionPostContentPicture {
+    float: left;
+    display: inline-block;
+
+}
+
+.discussionPostContentFullName {
+    display: inline-block;
+    float: left;
+    vertical-align: middle;
+    padding-left: 10px;
+    padding-top: 15px;
+    font-size: 18px;
+
+}
+.discussionPostContentText {
+    display: block;
+    padding-top: 50px;
+}
+
+.discussionPostContentHeader {
+    display: block;
+    padding-top: 10px;
+    background-color: red;
+    margin: 0;
+    width: 100%;
+}
+
+.discussionPostContentDetails {
+    font-size: 12px;
+    color: gray;
+}
+
+#discussionForumHeader {
+    /*background-image: url("images/Robarts.jpg");*/
+    background-image: url("../resources/wood.jpeg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    color: #f7efef;
+    /*color: black;*/
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    width: 100%;
+    height: 225px;
+    padding: 1px 0 0 0;
+    border-bottom: solid #ce0205 10px;
+}
+
+#discussionForumHeader img {
+    display: inline-block;
+    float: left;
+    margin-top: -55px;
+    padding-right: 50px;
+}
+
+#discussionForumHeader #discussionForumHeaderTitle {
+    float: right;
+    padding-right: 80px;
+    padding-top: 65px;
+    font-size: 35px;
+}
+
+
+#discussionForumHeaderTitle h2 {
+    font-size: 40px;
+}
+
+#discussionForumHeaderTitle h4 {
+    font-size: 35px;
+}
+
+#submitNewDiscussionPostSection {
+    display: inline-block;
+    margin-top: -50px;
+    padding-left: 10px;
+}
+
+textarea {
+    display: block;
+}
+
+#submitNewDiscussionPostSection textarea {
+    margin: 0 590px 0 0;
+    width: 516px;
+    height: 129px;
+}
+
+input {
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+}
+
+body {
+    padding: 0;
+    margin: 0;
+
+}

@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Class Meets</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="./style/assignment.css" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="./style/profile.css" />
+    <link rel="stylesheet" href="./style/app.css" />
+
+    <link rel="stylesheet" href="./style/DiscussionForumStyle.css" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand"> Class Meets </a>
+          </div>
+          <ul class="nav navbar-nav">
+            <li>
+              <a class="signedIn hidden" data-hook="myProfile">My Profile</a>
+            </li>
+            <li><a class="signedIn hidden" data-hook="courses">Courses</a></li>
+            <li>
+              <a class="signedIn hidden" data-hook="discussionForum"
+                >Discussion Forum</a
+              >
+            </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <a>
+                <span
+                  class="glyphicon glyphicon-user notSignedIn"
+                  data-hook="signupButton"
+                >
+                  SignUp
+                </span>
+              </a>
+            </li>
+            <li>
+              <a>
+                <span
+                  class="glyphicon glyphicon-log-in notSignedIn"
+                  data-hook="loginButton"
+                >
+                  Login
+                </span>
+              </a>
+            </li>
+            <li>
+              <a>
+                <span
+                  class="glyphicon glyphicon-log-in signedIn hidden"
+                  data-hook="logoutButton"
+                >
+                  LogOut
+                </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <div class="hidden center" id="loginPage">
+      <form>
+        <div class="form-group">
+          <label for="email">Email address:</label>
+          <input type="email" class="form-control" id="loginemail" />
+        </div>
+        <div class="form-group">
+          <label for="pwd">Password:</label>
+          <input type="password" class="form-control" id="logInpwd" />
+        </div>
+        <button type="submit" class="btn btn-default" data-hook="loginUser">
+          Submit
+        </button>
+      </form>
+    </div>
+    <div class="hidden center" id="signUpForm">
+      <form>
+        <div class="form-group">
+          <label for="email">Email address:</label>
+          <input type="email" class="form-control" id="registerEmail" />
+        </div>
+        <div class="form-group">
+          <label for="pwd">Password:</label>
+          <input type="password" class="form-control" id="registerPwd" />
+        </div>
+        <div class="form-group">
+          <label for="registerName">Name:</label>
+          <input type="text" class="form-control" id="registerName" />
+        </div>
+        <div class="form-group">
+          <label for="registerProgram">Program:</label>
+          <input type="text" class="form-control" id="registerProgram" />
+        </div>
+        <div class="form-group">
+          <label for="sel1">Year of Study:</label>
+          <select class="form-control" id="sel1">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+          </select>
+        </div>
+        <button
+          type="submit"
+          class="btn btn-default"
+          data-hook="registerNewUser"
+        >
+          Register
+        </button>
+      </form>
+    </div>
+    <div data-hook="user_content">
+      <div class="hidden" data-hook="courses_page">
+        <div>
+          <h2>Current U of T Courses</h2>
+          <table class="table table-striped table-condensed">
+            <thead>
+              <tr>
+                <th>Course Code</th>
+                <th>Instructor</th>
+                <th>Assignments</th>
+              </tr>
+            </thead>
+            <tbody data-hook="courseList">
+              <tr>
+                <td>CSC309</td>
+                <td>Mark K</td>
+                <td class="info">
+                  <button type="button" class="btn-link csc309">
+                    Assignment1
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>CSC148</td>
+                <td>Mark K2</td>
+                <td class="info">
+                  <button type="button" class="btn-link csc309">E1</button
+                  ><button type="button" class="btn-link">A2</button>
+                </td>
+              </tr>
+              <tr>
+                <td>CSC168</td>
+                <td>Mark K3</td>
+                <td class="info">
+                  <button type="button" class="btn-link csc309">A3</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="hidden profile" id="ProfileViewEl">
+        <img id="profilePhoto" src="./resources/kendall.jpg" />
+        <img id="coverPhoto" src="./resources/bg.jpg" />
+        <p class="profileText" id="profileName">Marina</p>
+        <p class="profileText" id="profileMajor">
+          Computer Specialist<span class="profileText" id="profileYear"
+            >3rd year</span
+          >
+        </p>
+
+        <div id="box">
+          <!-- TIMETABLE BOX -->
+          <div class="profileBox" id="timetable">
+            <p class="boxTitle">Timetable</p>
+            <table class="table table-bordered" id="schedule">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Monday</th>
+                  <th>Tuesday</th>
+                  <th>Wednesday</th>
+                  <th>Thursday</th>
+                  <th>Friday</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr id="9">
+                  <th>9</th>
+                  <th class="monday"></th>
+                  <th class="tuesday"></th>
+                  <th class="wednesday"></th>
+                  <th class="thursday"></th>
+                  <th class="friday"></th>
+                </tr>
+                <tr id="10">
+                  <th>10</th>
+                  <th class="monday"></th>
+                  <th class="tuesday"></th>
+                  <th class="wednesday"></th>
+                  <th class="thursday"></th>
+                  <th class="friday"></th>
+                </tr>
+                <tr id="11">
+                  <th>11</th>
+                  <th class="monday"></th>
+                  <th class="tuesday"></th>
+                  <th class="wednesday"></th>
+                  <th class="thursday"></th>
+                  <th class="friday"></th>
+                </tr>
+                <tr id="12">
+                  <th>12</th>
+                  <th class="monday"></th>
+                  <th class="tuesday"></th>
+                  <th class="wednesday"></th>
+                  <th class="thursday"></th>
+                  <th class="friday"></th>
+                </tr>
+                <tr id="1">
+                  <th>1</th>
+                  <th class="monday"></th>
+                  <th class="tuesday"></th>
+                  <th class="wednesday"></th>
+                  <th class="thursday"></th>
+                  <th class="friday"></th>
+                </tr>
+                <tr id="2">
+                  <th>2</th>
+                  <th class="monday"></th>
+                  <th class="tuesday"></th>
+                  <th class="wednesday"></th>
+                  <th class="thursday"></th>
+                  <th class="friday"></th>
+                </tr>
+                <tr id="3">
+                  <th>3</th>
+                  <th class="monday"></th>
+                  <th class="tuesday"></th>
+                  <th class="wednesday"></th>
+                  <th class="thursday"></th>
+                  <th class="friday"></th>
+                </tr>
+                <tr id="4">
+                  <th>4</th>
+                  <th class="monday"></th>
+                  <th class="tuesday"></th>
+                  <th class="wednesday"></th>
+                  <th class="thursday"></th>
+                  <th class="friday"></th>
+                </tr>
+                <tr id="5">
+                  <th>5</th>
+                  <th class="monday"></th>
+                  <th class="tuesday"></th>
+                  <th class="wednesday"></th>
+                  <th class="thursday"></th>
+                  <th class="friday"></th>
+                </tr>
+                <tr id="6">
+                  <th>6</th>
+                  <th class="monday"></th>
+                  <th class="tuesday"></th>
+                  <th class="wednesday"></th>
+                  <th class="thursday"></th>
+                  <th class="friday"></th>
+                </tr>
+                <tr id="7">
+                  <th>7</th>
+                  <th class="monday"></th>
+                  <th class="tuesday"></th>
+                  <th class="wednesday"></th>
+                  <th class="thursday"></th>
+                  <th class="friday"></th>
+                </tr>
+                <tr id="8">
+                  <th>8</th>
+                  <th class="monday"></th>
+                  <th class="tuesday"></th>
+                  <th class="wednesday"></th>
+                  <th class="thursday"></th>
+                  <th class="friday"></th>
+                </tr>
+                <tr id="9p">
+                  <th>9</th>
+                  <th class="monday"></th>
+                  <th class="tuesday"></th>
+                  <th class="wednesday"></th>
+                  <th class="thursday"></th>
+                  <th class="friday"></th>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- assignment BOX -->
+          <div class="profileBox" id="assignments">
+            <p class="boxTitle">Assignments</p>
+            <table id="assTable">
+              <tr class="assRow"></tr>
+            </table>
+          </div>
+
+          <p id="addAText">Add Assignment:</p>
+
+          <form id="addForm">
+            <input id="aName" type="text" placeholder="Assignment Name" />
+            <input id="aDate" type="text" placeholder="Assignment Date" />
+            <input id="aCourse" type="text" placeholder="Assignment Course" />
+            <input id="aPercent" type="text" placeholder="Progress Percent" />
+            <input type="submit" value="Add Assignment" />
+          </form>
+          <p id="addCourseText">Add Course:</p>
+          <form id="courseForm">
+            <input id="courseFullName" type="text" placeholder="Course Name" />
+            <input id="courseDay" type="text" placeholder="Course Day" />
+            <input id="start" type="text" placeholder="Start Time in 24h" />
+            <input id="end" type="text" placeholder="End Time in 24h" />
+            <input type="submit" value="Add Course" />
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div data-hook="assignmentPage" class="hidden">
+      <div id="header">
+        <h4 class="className">CSC309</h4>
+        <h4 class="assName">Assignment1</h4>
+        <p>due on: <span class="date">Dec 1</span></p>
+      </div>
+      <div id="msg">
+        <h5><strong>Students Looking for Teammates:</strong></h5>
+      </div>
+
+      <div>
+        <table id="studentList">
+          <tr>
+            <th>Name</th>
+            <th>Program</th>
+            <th>Year of Study</th>
+          </tr>
+          <tr>
+            <td>
+              <img
+                src="./resources/assignment_cat.jpg"
+                alt="icon"
+                class="userIcon"
+              />
+              <a href="">Aijia Tian</a>
+            </td>
+            <td>cs</td>
+            <td>4</td>
+          </tr>
+        </table>
+
+        <br />
+        <form id="studentAddForm">
+          <input id="newStudentName" type="text" placeholder="Student Name" />
+          <input type="submit" value="Add Student" />
+        </form>
+      </div>
+    </div>
+
+    <div data-hook="discussionForumPage" class="hidden"></div>
+
+    <script type="text/javascript" src="./views/LoginView.js"></script>
+    <script type="text/javascript" src="./views/SignupView.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript" src="./views/CoursesView.js"></script>
+    <script type="text/javascript" src="./views/AssignmentView.js"></script>
+    <script type="text/javascript" src="./views/ProfileView.js"></script>
+    <script type="text/javascript" src="views/DiscussionForumView.js"></script>
+    <script
+      type="text/javascript"
+      src="scripts/DiscussionForumStructures.js"
+    ></script>
+  </body>
+</html>

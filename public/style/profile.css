@@ -1,0 +1,140 @@
+#profilePhoto {
+  border-radius: 50%;
+  position: absolute;
+  z-index: 5;
+  height: 200px;
+  border: #fff solid 2px;
+  top: 170px;
+  left: 40px;
+}
+#coverPhoto {
+  width: 100%;
+  height: 300px;
+  position: absolute;
+  margin: 0px;
+  border-radius: 20px;
+}
+
+#box {
+  background: #ececec;
+  position: absolute;
+  z-index: 3;
+  top: 310px;
+  width: 100%;
+  min-height: 900px;
+  border-radius: 20px;
+}
+#profileName {
+  top: 250px;
+  left: 270px;
+  z-index: 4;
+  font-size: 40px;
+}
+
+#profileMajor {
+  top: 310px;
+  left: 270px;
+  font-size: 20px;
+  z-index: 4;
+}
+#profileYear {
+  width: 100%;
+  left: 170px;
+  top: 5px;
+  font-size: 15px;
+}
+
+.profileText {
+  position: absolute;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-weight: 100;
+  color: black;
+}
+
+.profileBox {
+  position: absolute;
+  background: white;
+  z-index: 4;
+}
+
+th {
+  border-bottom: #ececec solid 1px;
+  width: 25%;
+}
+
+#timetable {
+  top: 80px;
+  width: 540px;
+  left: 40px;
+  min-height: 400px;
+}
+
+#assignments {
+  top: 80px;
+  left: 600px;
+  min-width: 640px;
+  min-height: 400px;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+a:hover {
+  color: #ececec;
+}
+
+.boxTitle {
+  font-weight: 100;
+  border-bottom: #ececec solid 1px;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  text-align: center;
+  padding: 10px;
+  font-size: 20px;
+  margin-top: 0px;
+}
+
+.addButtons {
+  background: white;
+  position: absolute;
+  z-index: 6;
+  top: 500px;
+  left: 600px;
+  width: 640px;
+  height: 300px;
+}
+
+#addForm {
+  position: absolute;
+  top: 520px;
+  left: 600px;
+}
+
+#addCourse {
+  position: absolute;
+  top: 600px;
+  left: 600px;
+}
+#addAText {
+  position: absolute;
+  top: 500px;
+  left: 600px;
+}
+.used {
+  background-color: #b3d9ff;
+}
+#courseForm {
+  position: absolute;
+  top: 650px;
+  left: 600px;
+}
+#addCourseText {
+  position: absolute;
+  top: 625px;
+  left: 600px;
+}
+
+.tableText {
+  font-weight: 100;
+  text-align: center;
+}
