@@ -46,7 +46,7 @@ const sessionChecker = (req, res, next) => {
 
 // route for root; redirect to login
 app.get("/",  (req, res) => {
-  res.sendFile(__dirname + "/public/index.html");
+  res.sendFile("/public/index.html");
 });
 
 // Users Endpoints
