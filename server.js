@@ -116,9 +116,6 @@ const authenticate = (req, res, next) => {
 };
 // Set up a POST route to create a student
 app.post("/students", (req, res) => {
-  log(req.body);
-
-  // Create a new student
   const student = new Student({
     name: req.body.name,
     program: req.body.program,
@@ -154,7 +151,7 @@ app.get("/students", authenticate, (req, res) => {
 // GET student by user log in id
 app.get("/students/:id", authenticate, (req, res) => {
   Student.find({
-    account: req.user._id // from authenticated user
+    account: req.user._id
   }).then(
     student => {
       res.send(student);
@@ -164,6 +161,8 @@ app.get("/students/:id", authenticate, (req, res) => {
     }
   );
 });
+
+
 
 app.listen(port, () => {
   log(`Listening on port ${port}...`);
