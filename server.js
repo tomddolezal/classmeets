@@ -36,17 +36,9 @@ app.use(
   })
 );
 
-// Add middleware to check for logged-in users
-const sessionChecker = (req, res, next) => {
-  if (req.session.user) {
-  } else {
-    next();
-  }
-};
-
 // route for root; redirect to login
-app.get("/",  (req, res) => {
-  res.sendFile("/public/index.html");
+app.get("/", (req, res) => {
+  res.sendFile(__dirname + "/public/index.html");
 });
 
 // Users Endpoints
