@@ -161,6 +161,81 @@ app.get("/student/", authenticate, (req, res) => {
     }
   );
 });
+app.post("/courses", (req, res) => {
+  const course = new Course({
+    code: req.body.code,
+    instructor: req.body.instructor,
+    name: req.body.name,
+    assignments: [],
+    students: []
+  });
+
+  course.save().then(
+    result => {
+      res.send(result);
+    },
+    error => {
+      res.status(400).send(error); // 400 for bad request
+    }
+  );
+});
+
+app.get("/courses/", authenticate, (req, res) => {
+  Course.find().then(
+    courses => {
+      res.send({ courses });
+    },
+    error => {
+      res.status(400).send(error);
+    }
+  );
+});
+
+//Assignments
+app.get("/assignments/:course_id", authenticate, (req, res) => {
+  const id = req.params.course_id;
+
+  Course.find({ code: id })
+    .then(
+      course => {
+        Assignment.find({ code: id }).then(assignments => {
+          res.send(assignments);
+        });
+      },
+      error => {
+        res.status(400).send(error);
+      }
+    )
+    .catch(error => {
+      res.status(400).send(error);
+    });
+});
+app.post("/assignments", (req, res) => {
+  const assignment = new Assignment({
+    code: req.body.code,
+    due: req.body.due,
+    name: req.body.name,
+    students: []
+  });
+
+  assignment
+    .save()
+    .then(result => {
+      Course.find({
+        code: result.code
+      })
+        .then(course => {
+          course[0].assignments.push(result._id);
+          course[0].save().then(newCourse => res.send(result));
+        })
+        .catch(error => {
+          res.status(400).send(error);
+        });
+    })
+    .catch(error => {
+      res.status(400).send(error);
+    });
+});
 
 app.listen(port, () => {
   log(`Listening on port ${port}...`);

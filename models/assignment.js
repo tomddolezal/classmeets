@@ -4,23 +4,19 @@ const Assignment = mongoose.model("Assignment", {
   code: {
     type: String,
     required: true,
-    minlength: 1,
-    trim: true,
-    unique: true
-  },
-  date: {
-    type: String,
-    required: true,
-    minlength: 5,
-    trim: true,
-    unique: true
+    minlength: 6,
+    trim: true
   },
   name: {
     type: String,
     required: true,
+    trim: true,
+  },
+  due: {
+    type: String,
+    required: true,
     minlength: 5,
     trim: true,
-    unique: true
   },
   students: {
     type: [mongoose.Schema.Types.ObjectId],

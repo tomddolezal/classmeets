@@ -4,23 +4,32 @@ const Course = mongoose.model("Course", {
   code: {
     type: String,
     required: true,
-    minlength: 1,
+    minlength: 6,
     trim: true, // trim whitespace
     unique: true
   },
-  year: {
-    type: Number,
-    required: true
+  name: {
+    type: String,
+    required: true,
+    minlength: 6,
+    trim: true, // trim whitespace
+    unique: true
+  },
+  instructor: {
+    type: String,
+    required: true,
+    minlength: 5,
+    trim: true, // trim whitespace
   },
   students: {
     // ObjectId for the user who created this course
     type: [mongoose.Schema.Types.ObjectId],
-    required: true
+    required: false
   },
   assignments: {
     // ObjectId for the user who created this course
     type: [mongoose.Schema.Types.ObjectId],
-    required: true
+    required: false
   }
 });
 

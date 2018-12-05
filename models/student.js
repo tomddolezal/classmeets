@@ -13,7 +13,6 @@ const Student = mongoose.model("Student", {
     required: true,
     minlength: 1,
     trim: true,
-    unique: true
   },
   year: {
     type: Number,

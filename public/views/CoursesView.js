@@ -13,13 +13,45 @@ class CoursesView {
       document
         .querySelector('[data-hook="courses_page"]')
         .classList.remove("hidden");
-        getAllStudents();
       document.querySelector('[data-hook="courses_page"]').innerHTML = `<div>
+      <h2>Add a Course:</h2>
+      <form class="form-inline">
+      <div class="form-group">
+        <label for="course">Course Code:</label>
+        <input type="text" class="form-control" id="course">
+      </div>
+      <div class="form-group">
+      <label for="cName">Course Name:</label>
+      <input type="text" class="form-control" id="cName">
+      </div>
+      <div class="form-group">
+      <label for="instructor">Instructor:</label>
+      <input type="text" class="form-control" id="instructor">
+      </div>
+      <button type="submit" class="btn btn-default" id="add_course" >Add Course</button>
+    </form>
+    <h2>Add an Assignment:</h2>
+<form class="form-inline">
+<div class="form-group">
+  <label for="course">Course:</label>
+  <input type="text" class="form-control" id="assCourse">
+</div>
+<div class="form-group">
+<label for="assName">Name:</label>
+<input type="text" class="form-control" id="assName">
+</div>
+<div class="form-group">
+<label for="assDue">Due:</label>
+<input type="text" class="form-control" id="assDue">
+</div>
+<button type="submit" class="btn btn-default" id="add_ass" >Add Assignment</button>
+</form>
 <h2>Current U of T Courses</h2>
 <table class="table table-striped table-condensed">
   <thead>
     <tr>
       <th>Course Code</th>
+      <th>Course Name</th>
       <th>Instructor</th>
       <th>Assignments</th>
     </tr>
@@ -27,32 +59,22 @@ class CoursesView {
   <tbody data-hook="courseList">
     <tr>
       <td>CSC309</td>
+      <td>Programming on the Web</td>
       <td>Mark K</td>
       <td class="info">
-        <button type="button" class="btn-link csc309">
+        <button type="button" class="btn-link course_assignment">
           Assignment1
         </button>
       </td>
     </tr>
-    <tr>
-      <td>CSC148</td>
-      <td>Mark K2</td>
-      <td class="info">
-        <button type="button" class="btn-link csc309">E1</button
-        ><button type="button" class="btn-link">A2</button>
-      </td>
-    </tr>
-    <tr>
-      <td>CSC168</td>
-      <td>Mark K3</td>
-      <td class="info">
-        <button type="button" class="btn-link csc309">A3</button>
-      </td>
-    </tr>
   </tbody>
-</table>`;
+</table>
+`;
+      addAllCourses();
+      document.querySelector("#add_course").onclick = addCourse;
+      document.querySelector("#add_ass").onclick = addAssignment;
       document
-        .querySelectorAll(".csc309")
+        .querySelectorAll("course_assignment")
         .forEach(assignment => new AssignmentView(assignment, cleaner));
     };
   }
@@ -63,5 +85,147 @@ class CoursesView {
       .classList.add("hidden");
   }
 }
+function addAssignment(e) {
+  e.preventDefault();
+  const code = document.querySelector("#assCourse").value;
+  const name = document.querySelector("#assName").value;
+  const due = document.querySelector("#assDue").value;
 
-function createCourses() {}
+  const request = new Request("/assignments", {
+    method: "post",
+    body: JSON.stringify({
+      code: code,
+      name: name,
+      due: due
+    }),
+    headers: {
+      Accept: "application/json, text/plain, */*",
+      "Content-Type": "application/json"
+    }
+  });
+  fetch(request)
+    .then(function(res) {
+      if (res.status === 200) {
+        return res.json();
+      } else {
+        console.log("Error adding assignment");
+      }
+    })
+    .then(json => {
+      const newAss = document.createElement("button");
+      newAss.innerHTML =
+        `<button type="button" class="btn-link course_assignment">
+        ` +
+        json.name +
+        `
+      </button>`;
+      document.querySelector("#ass" + json.code).appendChild(newAss);
+    })
+    .catch(error => {
+      alert("Invalid Assignment");
+    });
+}
+function addCourse(e) {
+  e.preventDefault();
+  const code = document.querySelector("#course").value;
+  const instructorName = document.querySelector("#instructor").value;
+  const courseName = document.querySelector("#cName").value;
+
+  console.log(code);
+  const request = new Request("/courses", {
+    method: "post",
+    body: JSON.stringify({
+      code: code,
+      name: courseName,
+      instructor: instructorName
+    }),
+    headers: {
+      Accept: "application/json, text/plain, */*",
+      "Content-Type": "application/json"
+    }
+  });
+  fetch(request)
+    .then(function(res) {
+      if (res.status === 200) {
+        return res.json();
+      } else {
+        console.log("Error adding course");
+      }
+    })
+    .then(json => {
+      const newCourse = document.createElement("tr");
+      newCourse.innerHTML =
+        `<td>` +
+        json.code +
+        `</td>
+        <td>` +
+        json.name +
+        `</td>
+      <td>` +
+        json.instructor +
+        `</td>
+      <td class="info" id="` +
+        "ass" +
+        json.code +
+        `">
+      </td>`;
+      document.querySelector('[data-hook="courseList"]').appendChild(newCourse);
+    })
+    .catch(error => {
+      console.log(error);
+      alert("Invalid Course");
+    });
+}
+
+function addAllCourses() {
+  courses = [];
+  fetch("/courses")
+    .then(function(res) {
+      if (res.status === 200) {
+        return res.json();
+      } else {
+        console.log("Error adding course");
+      }
+    })
+    .then(json => {
+      json.courses.forEach(course => {
+        fetch("/assignments/" + course.code)
+          .then(res => {
+            if (res.status === 200) {
+              return res.json();
+            } else {
+              console.log("Error loading course");
+            }
+          })
+          .then(json => {
+            const code = "ass" + course.code;
+            const newCourse = document.createElement("tr");
+            let assignmentButtons = "";
+            json.forEach(a => {
+              assignmentButtons +=
+                `<button type="button" class="btn-link course_assignment">` +
+                a.name +
+                `</button>`;
+            });
+            newCourse.innerHTML =
+              `<td>` +
+              course.code +
+              `<td>` +
+              course.name +
+              `</td><td>` +
+              course.instructor +
+              `</td><td class="info" id="` +
+              code +
+              `">` +
+              assignmentButtons +
+              ` </td>`;
+            document
+              .querySelector('[data-hook="courseList"]')
+              .appendChild(newCourse);
+          });
+      });
+    })
+    .catch(error => {
+      alert("Invalid Course");
+    });
+}
