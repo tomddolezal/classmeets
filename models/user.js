@@ -51,7 +51,6 @@ UserSchema.statics.findByEmailPassword = function(email, password) {
 // This function runs before saving user to database
 UserSchema.pre("save", function(next) {
   const user = this;
-
   // check to make sure we don't hash again
   if (user.isModified("password")) {
     bcrypt.genSalt(10, (error, salt) => {

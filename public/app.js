@@ -1,5 +1,6 @@
 // App javascript
 let signedInUser;
+let allStudents;
 let courseView;
 let profileView;
 let discussionForumView;
@@ -132,12 +133,11 @@ document.querySelector('[data-hook="logoutButton"]').onclick = e => {
 //Log in User code
 document.querySelector('[data-hook="loginUser"]').onclick = e => {
   e.preventDefault();
-
   let data = {
     email: document.querySelector("#loginemail").value,
     password: document.querySelector("#logInpwd").value
   };
-  //
+
   const request = new Request("/users/login", {
     method: "post",
     body: JSON.stringify(data),
@@ -154,7 +154,7 @@ document.querySelector('[data-hook="loginUser"]').onclick = e => {
         alert("Invalid Login");
       }
     })
-    .then(function(json) {
+    .then(json => {
       signup.hide();
       login.hide();
       document
@@ -163,15 +163,16 @@ document.querySelector('[data-hook="loginUser"]').onclick = e => {
       document
         .querySelectorAll(".signedIn")
         .forEach(el => el.classList.remove("hidden"));
-      signIn(json._id);
+      signIn();
     })
     .catch(error => {
       alert("Invalid Login");
     });
 };
 
-function signIn(id) {
-  const url = "/students/" + id;
+function signIn() {
+  allStudents = getAllStudents();
+  const url = "/student/";
   fetch(url)
     .then(res => {
       if (res.status === 200) {
@@ -204,4 +205,24 @@ function signIn(id) {
     .catch(error => {
       console.log(error);
     });
+}
+
+function getAllStudents() {
+  let students = [];
+  //
+  fetch("/students/")
+    .then(function(res) {
+      if (res.status === 200) {
+        return res.json();
+      } else {
+        alert("Invalid Login");
+      }
+    })
+    .then(json => {
+      students = json.students;
+    })
+    .catch(error => {
+      alert("Invalid Login");
+    });
+  return students;
 }

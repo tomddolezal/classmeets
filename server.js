@@ -114,6 +114,7 @@ const authenticate = (req, res, next) => {
     res.redirect("/");
   }
 };
+
 // Set up a POST route to create a student
 app.post("/students", (req, res) => {
   const student = new Student({
@@ -124,7 +125,6 @@ app.post("/students", (req, res) => {
     courses: []
   });
 
-  // save student to database
   student.save().then(
     result => {
       // Save and send object that was saved
@@ -137,7 +137,7 @@ app.post("/students", (req, res) => {
 });
 
 // GET all students
-app.get("/students", authenticate, (req, res) => {
+app.get("/students/", authenticate, (req, res) => {
   Student.find().then(
     students => {
       res.send({ students });
@@ -149,7 +149,7 @@ app.get("/students", authenticate, (req, res) => {
 });
 
 // GET student by user log in id
-app.get("/students/:id", authenticate, (req, res) => {
+app.get("/student/", authenticate, (req, res) => {
   Student.find({
     account: req.user._id
   }).then(
@@ -161,8 +161,6 @@ app.get("/students/:id", authenticate, (req, res) => {
     }
   );
 });
-
-
 
 app.listen(port, () => {
   log(`Listening on port ${port}...`);

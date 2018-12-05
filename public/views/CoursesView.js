@@ -10,10 +10,11 @@ class CoursesView {
     this.element.onclick = event => {
       event.preventDefault();
       self.cleaner.clean();
-      const courses = document
+      document
         .querySelector('[data-hook="courses_page"]')
         .classList.remove("hidden");
-      courses.innerHTML = `<div>
+        getAllStudents();
+      document.querySelector('[data-hook="courses_page"]').innerHTML = `<div>
 <h2>Current U of T Courses</h2>
 <table class="table table-striped table-condensed">
   <thead>
@@ -62,3 +63,5 @@ class CoursesView {
       .classList.add("hidden");
   }
 }
+
+function createCourses() {}

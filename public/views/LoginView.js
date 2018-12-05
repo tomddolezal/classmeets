@@ -7,6 +7,7 @@ class LoginView {
 
   _attachEventHandler() {
     const self = this;
+
     this.element.onclick = event => {
       event.preventDefault();
       self.cleaner.clean();
@@ -17,3 +18,6 @@ class LoginView {
     document.querySelector("#loginPage").classList.add("hidden");
   }
 }
+window.onbeforeunload = function() {
+  return "You work will be lost.";
+};
