@@ -163,16 +163,16 @@ document.querySelector('[data-hook="loginUser"]').onclick = e => {
       document
         .querySelectorAll(".signedIn")
         .forEach(el => el.classList.remove("hidden"));
-      signIn();
+      signIn(json);
     })
     .catch(error => {
       alert("Invalid Login");
     });
 };
 
-function signIn() {
+function signIn(json) {
   allStudents = getAllStudents();
-  const url = "/student/";
+  const url = "/student/" + json._id;
   fetch(url)
     .then(res => {
       if (res.status === 200) {
@@ -223,9 +223,6 @@ function getAllStudents() {
     })
     .then(json => {
       students = json.students;
-    })
-    .catch(error => {
-      alert("Invalid Login");
     });
   return students;
 }

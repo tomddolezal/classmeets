@@ -50,15 +50,22 @@ app.post("/users", (req, res) => {
     isAdmin: req.body.isAdmin
   });
 
+  if (!user) {
+    res.status(400).send(error);
+    return;
+  }
   // save user to database
-  user.save().then(
-    result => {
-      res.send(user);
-    },
-    error => {
-      res.status(400).send(error); // 400 for bad request
-    }
-  );
+  user
+    .save()
+    .then(
+      result => {
+        res.send(user);
+      },
+      error => {
+        res.status(400).send(error); // 400 for bad request
+      }
+    )
+    .catch(error => console.log(error));
 });
 
 app.post("/users/login", (req, res) => {
@@ -122,18 +129,22 @@ app.post("/students", (req, res) => {
     program: req.body.program,
     year: req.body.year,
     account: req.body.account,
-    courses: []
+    courses: [],
+    assignments: []
   });
-
-  student.save().then(
-    result => {
+  if (!student) {
+    res.status(400).send(error); // 400 for bad request
+    return;
+  }
+  student
+    .save()
+    .then(result => {
       // Save and send object that was saved
       res.send(result);
-    },
-    error => {
+    })
+    .catch(error => {
       res.status(400).send(error); // 400 for bad request
-    }
-  );
+    });
 });
 
 // GET all students
@@ -149,9 +160,10 @@ app.get("/students/", authenticate, (req, res) => {
 });
 
 // GET student by user log in id
-app.get("/student/", authenticate, (req, res) => {
+app.get("/student/:_id", (req, res) => {
+  const id = req.params._id;
   Student.find({
-    account: req.user._id
+    account: id
   }).then(
     student => {
       res.send(student);
