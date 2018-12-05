@@ -201,6 +201,9 @@ function signIn() {
       cleaner.addView(profileView);
 
       console.log("SIGN IN FROM " + signedInUser.name);
+      window.onbeforeunload = function() {
+        return "You work will be lost.";
+      };
     })
     .catch(error => {
       console.log(error);

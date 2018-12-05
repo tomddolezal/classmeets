@@ -57,16 +57,6 @@ class CoursesView {
     </tr>
   </thead>
   <tbody data-hook="courseList">
-    <tr>
-      <td>CSC309</td>
-      <td>Programming on the Web</td>
-      <td>Mark K</td>
-      <td class="info">
-        <button type="button" class="btn-link course_assignment">
-          Assignment1
-        </button>
-      </td>
-    </tr>
   </tbody>
 </table>
 `;
@@ -120,6 +110,7 @@ function addAssignment(e) {
         `
       </button>`;
       document.querySelector("#ass" + json.code).appendChild(newAss);
+      new AssignmentView(newAss, cleaner);
     })
     .catch(error => {
       alert("Invalid Assignment");
@@ -200,13 +191,6 @@ function addAllCourses() {
           .then(json => {
             const code = "ass" + course.code;
             const newCourse = document.createElement("tr");
-            let assignmentButtons = "";
-            json.forEach(a => {
-              assignmentButtons +=
-                `<button type="button" class="btn-link course_assignment">` +
-                a.name +
-                `</button>`;
-            });
             newCourse.innerHTML =
               `<td>` +
               course.code +
@@ -217,11 +201,20 @@ function addAllCourses() {
               `</td><td class="info" id="` +
               code +
               `">` +
-              assignmentButtons +
               ` </td>`;
             document
               .querySelector('[data-hook="courseList"]')
               .appendChild(newCourse);
+
+            json.forEach(a => {
+              const newAss = document.createElement("button");
+              newAss.innerHTML =
+                '<button type="button" class="btn-link course_assignment">' +
+                a.name +
+                "</button>";
+              document.querySelector("#" + code).appendChild(newAss);
+              new AssignmentView(newAss, cleaner);
+            });
           });
       });
     })
