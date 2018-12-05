@@ -155,15 +155,19 @@ document.querySelector('[data-hook="loginUser"]').onclick = e => {
       }
     })
     .then(json => {
-      signup.hide();
-      login.hide();
-      document
-        .querySelectorAll(".notSignedIn")
-        .forEach(el => el.classList.add("hidden"));
-      document
-        .querySelectorAll(".signedIn")
-        .forEach(el => el.classList.remove("hidden"));
-      signIn(json);
+      if (!json.isAdmin) {
+        signup.hide();
+        login.hide();
+        document
+          .querySelectorAll(".notSignedIn")
+          .forEach(el => el.classList.add("hidden"));
+        document
+          .querySelectorAll(".signedIn")
+          .forEach(el => el.classList.remove("hidden"));
+        signIn(json);
+      } else {
+        window.location = "/admin";
+      }
     })
     .catch(error => {
       alert("Invalid Login");
@@ -171,7 +175,6 @@ document.querySelector('[data-hook="loginUser"]').onclick = e => {
 };
 
 function signIn(json) {
-  allStudents = getAllStudents();
   const url = "/student/" + json._id;
   fetch(url)
     .then(res => {
@@ -208,21 +211,4 @@ function signIn(json) {
     .catch(error => {
       console.log(error);
     });
-}
-
-function getAllStudents() {
-  let students = [];
-  //
-  fetch("/students/")
-    .then(function(res) {
-      if (res.status === 200) {
-        return res.json();
-      } else {
-        alert("Invalid Login");
-      }
-    })
-    .then(json => {
-      students = json.students;
-    });
-  return students;
 }

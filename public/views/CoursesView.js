@@ -219,6 +219,7 @@ function addAllCourses() {
       });
     })
     .catch(error => {
+      console.log(error);
       alert("Invalid Course");
     });
 }

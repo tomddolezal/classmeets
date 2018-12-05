@@ -30,7 +30,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      expires: 120000,
+      expires: 1000000,
       httpOnly: true
     }
   })
@@ -39,6 +39,10 @@ app.use(
 // route for root; redirect to login
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/public/index.html");
+});
+
+app.get("/admin", (req, res) => {
+  res.sendFile(__dirname + "/public/admin.html");
 });
 
 // Users Endpoints
@@ -82,7 +86,8 @@ app.post("/users/login", (req, res) => {
         req.session.user = user._id;
         req.session.email = user.email;
         res.send({
-          _id: user._id
+          _id: user._id,
+          isAdmin: user.isAdmin
         });
       }
     })
@@ -149,9 +154,29 @@ app.post("/students", (req, res) => {
 
 // GET all students
 app.get("/students/", authenticate, (req, res) => {
-  Student.find().then(
-    students => {
-      res.send({ students });
+  Student.find()
+    .then(
+      students => {
+        res.send(students);
+      },
+      error => {
+        res.status(400).send(error);
+      }
+    )
+    .catch(error => {
+      console.log(error);
+      res.status(400).send(error);
+    });
+});
+
+// GET student by user log in id
+app.get("/student/:_id", authenticate, (req, res) => {
+  const id = req.params._id;
+  Student.find({
+    account: id
+  }).then(
+    student => {
+      res.send(student);
     },
     error => {
       res.status(400).send(error);
@@ -159,14 +184,16 @@ app.get("/students/", authenticate, (req, res) => {
   );
 });
 
-// GET student by user log in id
-app.get("/student/:_id", (req, res) => {
+// DELETE student by student id
+app.delete("/student/:_id", authenticate, (req, res) => {
   const id = req.params._id;
-  Student.find({
-    account: id
-  }).then(
+  Student.findById(id).then(
     student => {
-      res.send(student);
+      const accountId = student.account;
+      student.delete();
+      User.findByIdAndRemove(accountId).then(user => {
+        res.send(user);
+      });
     },
     error => {
       res.status(400).send(error);
