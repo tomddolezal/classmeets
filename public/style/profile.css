@@ -14,6 +14,10 @@
   margin: 0px;
   border-radius: 20px;
 }
+#deleteCourse{
+  position:relative;
+  left:100px;
+}
 
 #box {
   background: #ececec;
@@ -29,6 +33,7 @@
   left: 270px;
   z-index: 4;
   font-size: 40px;
+  color: #ececec;
 }
 
 #profileMajor {
@@ -38,7 +43,7 @@
   z-index: 4;
 }
 #profileYear {
-  width: 100%;
+  width: 55px;
   left: 170px;
   top: 5px;
   font-size: 15px;
@@ -55,11 +60,18 @@
   position: absolute;
   background: white;
   z-index: 4;
+  padding:5px;
+}
+ #schedule th{
+  width: 25px;
+}
+.scheduleRow{
+  width:5px;
 }
 
-th {
+#assTable{
   border-bottom: #ececec solid 1px;
-  width: 25%;
+  width: 100%;
 }
 
 #timetable {
@@ -120,9 +132,7 @@ a:hover {
   top: 500px;
   left: 600px;
 }
-.used {
-  background-color: #b3d9ff;
-}
+
 #courseForm {
   position: absolute;
   top: 650px;
@@ -137,4 +147,11 @@ a:hover {
 .tableText {
   font-weight: 100;
   text-align: center;
+}
+.percent {
+  font-weight: 100;
+  text-align: center;
+}
+.percent:hover{
+  color:#ececec;
 }

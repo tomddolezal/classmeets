@@ -6,4 +6,4 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://tom:123@cluster0-shard-00
 
 module.exports = {
 	mongoose
-}
+};

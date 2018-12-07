@@ -32,7 +32,12 @@ const Student = mongoose.model("Student", {
     // ObjectId for the user login for this student
     type: [mongoose.Schema.Types.ObjectId],
     required: false
-  }
+  },
+  events: {
+    // ObjectId for the user login for this student
+    type: [mongoose.Schema.Types.ObjectId],
+    required: false
+  },
 });
 
 module.exports = { Student };

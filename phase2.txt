@@ -1,0 +1,42 @@
+Classmeets web application: https://rocky-brook-47766.herokuapp.com/
+
+Admin functionality:
+Admins can be added by only system admins manually.
+The admin account is : 
+email: admin@admin.com 
+password: adminadmin
+
+Administrators job is too remove users (students).
+
+
+A new student can register an account by clicking the Sign up button at 
+the top right of the navbar. 
+After registering the student can now log in and view their: profile, courses, and discussion forum.
+All login authentication is using JWT and session cookies: so if left idle for too long the cookie may expire
+and the server will no longer provide data from protected resources.
+
+Courses page:
+On the course page a student may add new courses and new assignments to those courses.
+Clicking an assignment will take you too an assignment's page. Where you can add students 
+to that assignment.
+
+Profile Page:
+A student can view their own profile by clicking the profile button on the menu bar. Once taken there, they will
+be able to see their name, major and year they're in, a default profile and cover picture, as well as their timetable and assignement list.
+You can add to your timetable by including the course code, the day (in lowercase ie. monday,tuesday ..), start and 
+end time in 24hr time (ie.12,13,14..) and optionally add a color either as the word ("red") or the hex color("#fff"),
+to display the event as that color. Otherwise it defaults to a light blue color. You can delete a course from your timetable
+as well by clicking the delete button and entering all the above info.
+There's an assignement list that shows all the given assignements, where you can add them as well and optionally add
+your progress for each one by clicking on the progress box (on the right of each row), and inputting the value into the
+prompt box, where it will then be updated. You can do this as many times as you want. You can also delete
+an assignment from the list by inputting all the info as before and clicking delete. 
+
+Discussion Forum:
+When you first click on the discussion forum in the menu bar, it takes you to a page that shows all the
+forums available for each course. You can click on each course and it will take you to the designated forum for that course
+where you can see write your own post, and reply to others
+
+All the routes are in the server.js file and are commented with their purpose
+
+

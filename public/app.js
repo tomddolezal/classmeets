@@ -199,6 +199,7 @@ function signIn(json) {
         cleaner
       );
 
+
       cleaner.addView(discussionForumView);
       cleaner.addView(courseView);
       cleaner.addView(profileView);
